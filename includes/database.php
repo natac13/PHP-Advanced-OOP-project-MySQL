@@ -12,6 +12,93 @@ if ($mysqli->connect_error) {
 $db =& $mysqli; // a reference to use in the main scripts
 
 
+/**
+ * This is in the class that was made that I choose not to since I was using
+ * the pre-made mysqli class
+ * Anytime I use the query method from the class I need to call this after!!
+ * @param  obj/bool $result    Is a object when using SELECT, SHOW, DESCRIBE
+ * and EXPLAIN for query, the rest are bools
+ * @param  string $last_query Command for mysql
+*/
+function confirm_query($result, $query) {
+    global $db;
+    global $last_query;
+// I am making a global version of the last_query so it can be use anywhere
+    $last_query = $query;
+
+    if(!$result) {
+        $output =  "Database query failed: " . $db->error . "<br>";
+        $output .= "Last SQL query: " . $query;
+        die($output);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/**
+* This is an attempt at overriding some methods in the normal mysqli class
+* This is s I can keep up with the addition of methods in the class
+*/
+// class MySQLDatabase extends mysqli {
+
+//     public $last_query;
+
+//     function __construct($server, $user, $pass, $database) {
+//         parent::__construct($server, $user, $pass, $database);
+//     }
+// /**
+//  * To be used instead of the normal query() method from the parent class
+//  * @param  string $sql Statement for mySQL
+//  * @return object      For select,
+//  */
+//     public function query_mod($sql) {
+//         $this->last_query = $sql;
+//         $result = $this->query($sql);
+//         $this->confirm_query($result);
+//         return $result;
+//     }
+
+//     private function confirm_query($result) {
+
+//         if(!$result) {
+//             $output =  "Database query failed: " . $this->error . "<br>";
+//             $output .= "Last SQL query: " . $this->last_query;
+//             die($output);
+//         }
+//     }
+// }
 
 /**
  * This class is very similar to the mysqli OOP class that is already pre-made
@@ -20,31 +107,31 @@ $db =& $mysqli; // a reference to use in the main scripts
  * I am going to try and branch on my own and use the documentation to help
  * me with the mysqli OOP way
  */
-class MySQLDatabase {
+// class MySQLDatabase {
 
-    private $connection;
+//     private $connection;
 
-    function __construct() {
-        $this->open_connection();
-    }
+//     function __construct() {
+//         $this->open_connection();
+//     }
 
-    public function open_connection() {
-        $this->connection = mysql_connect(DB_SERVER, DB_USER, DB_PASS,
-            DB_NAME);
-        if(!$this->connection) {
-            die("Database connection failed: " . mysql_error());
-        }
-    }
+//     public function open_connection() {
+//         $this->connection = mysql_connect(DB_SERVER, DB_USER, DB_PASS,
+//             DB_NAME);
+//         if(!$this->connection) {
+//             die("Database connection failed: " . mysql_error());
+//         }
+//     }
 
-    public function close_connection() {
-        if(isset($this->connection)) {
-            mysql_close($this->connection);
-            unset($this->connection);
-        }
-    }
+//     public function close_connection() {
+//         if(isset($this->connection)) {
+//             mysql_close($this->connection);
+//             unset($this->connection);
+//         }
+//     }
 
-    // more in video part 8
-}
+//     // more in video part 8
+// }
 // $database = new MySQLDatabase();
 
 /**
