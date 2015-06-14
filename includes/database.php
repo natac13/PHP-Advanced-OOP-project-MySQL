@@ -23,9 +23,8 @@ $db =& $mysqli; // a reference to use in the main scripts
 function confirm_query($result, $query) {
     global $db;
     global $last_query;
-// I am making a global version of the last_query so it can be use anywhere
+    // I am making a global version of the last_query, available to all scopes
     $last_query = $query;
-
     if(!$result) {
         $output =  "Database query failed: " . $db->error . "<br>";
         $output .= "Last SQL query: " . $query;

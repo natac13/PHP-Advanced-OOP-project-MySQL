@@ -1,9 +1,5 @@
-June 13th 2015
 I have decided not to use the MySQLDatabase class that was made in video 8. This is due to the fact that the tutorial was made before PHP 5.5, which I have. PHP 5.5 comes with a pre-made class for connecting to a database with MySQL, called mysqli. Therefore instead of me wasting time making the classes and merely copying. I choose to waste time trying to figure out how to make it work with using the mysqli OOP class and just add in the new functions where I can.
 
 I attempted to override the mysqli class which did work I just felt it would be much more confusing then to just use what was already there. This has me already making the confirm_query() function separate. As well in that function it take in the query string for mysql which then gets stored in a global variable so I can use it anywhere later.
 
 Anytime that I call query() method from the class I do the confirm_query() method after. Also when the tutorial uses escape_value(), I have that as the pre-made real_eascape_string().
-
-June 14th 2015
-Next task is making a user class that will handle all things that have to do with the user. This is finding users, and letting that usr interact with the database. There is no pre-made class for this so I finally get to build one along with the tutorials.
