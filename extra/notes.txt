@@ -1,0 +1,21 @@
+1. User Class:
+My initial confusion was on why the 'User' class itself was calling a new
+object of itself first before building the user object. I have come now to
+understand that when I use the 'Find' functions(find_all, find_by_id) they are
+both static functions that I can call without having an instance of the class
+itself. This means no wasted memory!! Then those 'find' functions themselves
+will then build an 'user' object.
+It does this by looping through the attributes of the static version. Then the
+record/result from the database will be assigned to the corresponding
+attributes.
+
+The long form approach meaning that: lets say I had a database with 50 or more
+columns that I want to assign to attributes. This would get very tedious very
+fast so the proper way to achieve something like this is with a loop.
+
+2. The static method is use as a very quick in and out tool. As well the static
+methods need to build the class itself! This is to safe memory and space.
+
+I learned this from Ryan at the php meetup! He also said to just write and
+code. Meaning that test as much as possible.
+
