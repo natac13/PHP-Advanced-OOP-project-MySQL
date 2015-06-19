@@ -9,6 +9,15 @@ It does this by looping through the attributes of the static version. Then the
 record/result from the database will be assigned to the corresponding
 attributes.
 
+OG instantiate function:
+    // Simple long form approach which I explain more in note.txt
+    // $object = new self;
+    // $object->id = $record['id'];
+    // $object->username = $record['username'];
+    // $object->password = $record['password'];
+    // $object->first_name = $record['first_name'];
+    // $object->last_name = $record['last_name'];
+
 The long form approach meaning that: lets say I had a database with 50 or more
 columns that I want to assign to attributes. This would get very tedious very
 fast so the proper way to achieve something like this is with a loop.

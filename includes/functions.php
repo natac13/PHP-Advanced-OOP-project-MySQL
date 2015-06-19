@@ -43,5 +43,26 @@ function output_message($message="") {
         return "";
     }
 }
+
+/**
+ * If for some reason I can't figure out yet, if I forget to require_once()
+ * for the user.php file and I am trying to call that class in the file.
+ * In stead of a error I can make this 'default' __autoload() function that
+ * will take as a parameter $class_name which is what the file is trying to
+ * call but can't find.
+ * Note: I can be as complex as I want; like looking through more directories
+ * with 'elseif' before failing.
+ * @param  string $class_name  This is the object that the file is trying to
+ * call but cannot find.
+ */
+function __autoload($class_name) {
+    $class_name = strtolower($class_name);
+    $path = "../includes/{$class_name}.php";
+    if(file_exists($path)) {
+        require_once($path);
+    } else {
+        die("The file {$class_name}.php could not be found. Please fix!");
+    }
 }
+
 ?>

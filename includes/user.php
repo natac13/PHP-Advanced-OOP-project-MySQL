@@ -11,7 +11,8 @@ class User {
 
 /**
  *  Every column in the database gets an attribute so that when I fetch the
- *  associative array I can assign that to the class attributes.
+ *  associative array I can assign that to the class attributes. This is done
+ *  by the instantiate function of this class.
  */
     public $id;
     public $username;
@@ -120,14 +121,8 @@ class User {
  * class this method is in.
  */
     private static function instantiate($record) {
-        // Simple long form approach which I explain more in note.txt
-        $object = new self;
-        // $object->id = $record['id'];
-        // $object->username = $record['username'];
-        // $object->password = $record['password'];
-        // $object->first_name = $record['first_name'];
-        // $object->last_name = $record['last_name'];
 
+        $object = new self;
         foreach($record as $attribute=>$value) {
             if($object->has_attribute($attribute)) {
                 $object->$attribute = $value;
