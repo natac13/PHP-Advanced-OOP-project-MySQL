@@ -28,3 +28,17 @@ methods need to build the class itself! This is to safe memory and space.
 I learned this from Ryan at the php meetup! He also said to just write and
 code. Meaning that test as much as possible.
 
+3. Late Static Binding
+A problem comes up with self:: in the instantiate method when I try to extend
+it from a parent class DatabaseObject. When php sees self:: it binds that to
+the original class and not the class that is using the method at runtime.
+Therefore what would happen is when the User class goes to run any method
+that it inherits which has the word self, the 'self' will refer to the parent
+class DatabaseObject instead of User.
+    In order to fix the issue so that any method will refer to the class using
+it at runtime, I use static instead of self. Also if I need the current class
+name I simple use the built in function get_called_class(). To conclude self
+gets bound early and static gets bound late or at runtime vs load time.
+
+
+

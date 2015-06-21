@@ -57,12 +57,22 @@ function output_message($message="") {
  */
 function __autoload($class_name) {
     $class_name = strtolower($class_name);
-    $path = "../includes/{$class_name}.php";
+    $path = LIB_PATH.DS."{$class_name}.php";
     if(file_exists($path)) {
         require_once($path);
     } else {
         die("The file {$class_name}.php could not be found. Please fix!");
     }
+}
+
+
+/**
+ * This will generate the correct template that is needed based off the
+ * parameter that is passed into it
+ * @param  string $template Name to one of the layout files. ie header, footer
+ */
+function include_layout_template($template="") {
+    include(SITE_ROOT.DS.'public'.DS.'layouts'.DS.$template);
 }
 
 ?>

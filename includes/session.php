@@ -1,5 +1,14 @@
 <?php
 
+/**
+ * A class to help work with sessions
+ * In my case, this primarily to manage logging users in and out
+ * Keep in mind when working with sessions that it is henerally inadvisable to
+ * store DB-related objects in the session. This is because these object can
+ * become stale, meaning that the user object in the database changed in
+ * relation to the session's user. And two, these object can be very large in
+ * size so it would burn out memory
+ */
 class Session {
 
     private $logged_in = false;

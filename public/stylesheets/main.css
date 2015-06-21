@@ -29,7 +29,8 @@ header {
   background: #1A446C;
   color: #D4E6F4; }
   header h1 {
-    padding: 1em; }
+    padding: 1em;
+    margin: 0; }
 
 main {
   min-height: 600px;

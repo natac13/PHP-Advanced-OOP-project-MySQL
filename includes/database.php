@@ -1,5 +1,5 @@
 <?php
-require_once("config.php");
+require_once(LIB_PATH.DS."config.php");
 
 // below is the OOP way to do this.
 // I do not need to select the database afterwards as it is the 4th param
