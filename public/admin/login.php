@@ -16,6 +16,10 @@ if(isset($_POST['submit'])) {
     $found_user = User::authenticate($username, $password);
 
     if ($found_user) {
+        // where I put the log function
+        $timestamp = time();
+        // Logger::InputEntry($found_user->username, "Login", $timestamp);
+        // Now the $session method login() takes care of the data entry.
         $session->login($found_user);
         redirect_to('index.php');
     } else {

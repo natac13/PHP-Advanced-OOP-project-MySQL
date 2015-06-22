@@ -1,0 +1,9 @@
+1. First thing is to set up the log directory. I do this by changing the group to www-data which apache2 web server belongs to. Then I have changed the permission for both the user and the group to allow reading and writing. This was done outside of php with the terminal itself.
+
+2. In functions I need a log_action($action, $message="") {...}
+Inside that I want to make sure the file exists and if not create a new file. Check that it is writiable and if not give an error.
+I need to append the entries to the end of the file can do this with a+ I think.
+entry format:
+2015-06-27 13:45:09 | Login: Natac.
+Recall SITE_ROOT and DS
+Remember how to deal with newline characters and double quotes matter

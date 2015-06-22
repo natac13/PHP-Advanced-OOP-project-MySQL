@@ -4,6 +4,13 @@
  * include the database.php file. However it is best to use require_once so
  * that it will only load one time per page, even if it was asked for multiple
  * times
+ *
+ * DatabaseObject which this class extends from has all the find functions.
+ * These are static methods and they then return the corresponding object to
+ * the class which called the find methods. The reaason for this line in using
+ * late static bindings which is the static:: instead of self::
+ * It mean whatever class called the static function the refer to that as the
+ * static(self part).
  */
 require_once(LIB_PATH.DS."database.php");
 

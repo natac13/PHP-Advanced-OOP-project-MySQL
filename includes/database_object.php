@@ -44,16 +44,18 @@ class DatabaseObject {
  * class merely to call find_by_id(). Just using the double colon
  * notation (::) I can call this method without instantiating the class
  * @param  integer $id Will target as specific row in the database
- * @return First there is a check to see if the array is not empty, then if
- * that is true then using the ternary operator I call array_shfit() which
- * removes the first element in the array and returns that new object.
- * If false meaning the $sql failed to find a match in the database then I
- * will return false so that I can use this like a boolean to just say
- * if(find_by_id){}
+ * @return object, like User, which gets made by these find functions by will
+ * build a object based off which child class called it. This is done using
+ * late static binding. static::{method} instead of self::{method}
+ * First there is a check to see if the array is not empty, then if that is
+ * true then using the ternary operator I call array_shfit() which removes the
+ * first element in the array and returns that new object. If false meaning
+ * the $sql failed to find a match in the database then I will return false so
+ * that I can use this like a boolean to just say if(find_by_id){}
  */
     public static function find_by_id($id=0) {
         global $db;
-        $sql= "SELECT * FROM " .static::$table_name . " WHERE id={$id}";
+        $sql= "SELECT * FROM " . static::$table_name . " WHERE id={$id}";
         $result_array = static::find_by_sql($sql); // ie. array...of one User
         return !empty($result_array) ? array_shift($result_array) : false;
     }
@@ -78,7 +80,7 @@ class DatabaseObject {
         while($row = $result_set->fetch_assoc()) {
             $object_array[] = static::instantiate($row);
         }
-        return $object_array; // ...of Users
+        return $object_array; // ...of Users of rows from database
     }
 
 /**
