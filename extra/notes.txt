@@ -57,6 +57,27 @@ The info in the assocative array can be obtained by
 'error' for error code
 example $_FILES['postName']['tmp_name']
 
+6. When used to create a new User the __construct method will run only making
+empty string to the attributes. This does not change the behavior of the code
+only improve the use of making a new user in the database. Instead of doing it
+the tutorial way which is to make the User object then assign those value to
+the instance and then run create. However, I have it so that when you make a
+new object it takes parameters and then assigns them to the classes attributes
+
+
+7. I have learned that the reason I cannot use the password_encrypt() to just
+check the password in the database is because that function generates random
+salt each time therefore changing the hash for the same word at different times
+
+
+8. I have got rid of storing the users password in the database since that is
+really breaking the 'rules'. Now only the instance has a copy of the plain
+text password and the database will only deal with the hashed_password. To
+authenticate users now I find only by username since those are unique on
+website. Then used the check_password method to hash the input text password
+with the same salt as the original. This is done since the first 22 characters
+are that salt itself!!
+
 
 
 
