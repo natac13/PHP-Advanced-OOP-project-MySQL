@@ -58,6 +58,10 @@ class Logger {
         echo (self::$Content);
     }
 
+/**
+ * Will clear the log file and write time and which user id called this method
+ * @param int $user_id To show who cleared the file.
+ */
     public static function Clear($user_id) {
         if(file_exists(self::$LogFile)) {
             file_put_contents(self::$LogFile, '');

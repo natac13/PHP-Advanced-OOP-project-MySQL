@@ -30,6 +30,9 @@ echo $new_user->full_name();
 // $x->password = "testing";
 // $x->save();
 
+$x = User::find_by_id(16);
+echo ($x->delete('yellow')) ? 'yep' : 'nop';
+echo $x->first_name . " was deleted";
 
 ?>
 

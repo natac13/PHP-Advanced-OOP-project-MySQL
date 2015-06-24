@@ -5,6 +5,9 @@ require_once(LIB_PATH.DS.'database.php');
 class DatabaseObject {
 
     protected static $table_name;
+
+
+
 //////////////////////////////////////////////////////////////////////////////
 //////////////////                                   /////////////////////////
 //////////////////      Common Database Methods      /////////////////////////
@@ -76,6 +79,7 @@ class DatabaseObject {
     public static function find_by_sql($sql="") {
         global $db;
         $result_set = $db->query($sql);
+        confirm_query($result_set, $sql);
         $object_array = array();
         // $row is the same as $record which is a 'thing' from the database
         // such as a user to create

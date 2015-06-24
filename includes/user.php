@@ -264,5 +264,24 @@ class User extends DatabaseObject {
     public function save() {
         return isset($this->id) ? $this->update() : $this->create();
     }
+
+/**
+ * Written so that the user would need to input the password to delete
+ * @param  string $password From a form that will be displayed when the user
+ * wants to delete themselves.
+ * @return boolean           True on successful delete and false otherwise.
+ */
+    public function delete($password) {
+        global $db;
+
+        if($this->password_check($password, $this->hashed_password)) {
+            $sql =  "DELETE FROM users ";
+            $sql .= "WHERE id=" . $db->escape_string($this->id);
+            $sql .= " LIMIT 1";
+            $result = $db->query($sql);
+            return ($db->affected_rows == 1) ? true : false;
+
+        }
+    }
 }
 ?>
