@@ -20,7 +20,7 @@ require_once('../../includes/initialize.php');
 // echo $updat_user->full_name();
 echo "<hr>";
 
-$new_user = new User("Boomer", "yellow", "stephaine", "campbell");
+$new_user = new User("joining", "test", "joe", "smith");
 $new_user->save();
 echo $new_user->id;
 echo "<br>";
@@ -30,9 +30,10 @@ echo $new_user->full_name();
 // $x->password = "testing";
 // $x->save();
 
-$x = User::find_by_id(16);
-echo ($x->delete('yellow')) ? 'yep' : 'nop';
-echo $x->first_name . " was deleted";
+$x = User::find_by_id(17);
+
+// echo ($x->delete('yellow')) ? $x->first_name . " was deleted" : 'nop';
+
 
 ?>
 

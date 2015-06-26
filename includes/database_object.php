@@ -131,9 +131,79 @@ class DatabaseObject {
  * @return boolean
  */
     private function has_attribute($attribute) {
-        $object_vars = get_object_vars($this);
+        $object_vars = $this->attributes();
         return array_key_exists($attribute, $object_vars);
     }
+
+/**
+ * returns an associative array of the class' attributes and there values.
+ * @return assoc key, value pairing of class variables
+ */
+    protected function attributes() {
+        return get_object_vars($this);
+    }
+
+/**
+ * Cleans the values of the class variables which get submitted to the
+ * database and therefore need to be escaped.
+ * @return assoc Variables as keys with escaped values.
+ */
+    protected function sanitized_attributes() {
+        global $db;
+        $cleaned = array();
+        foreach($this->attributes() as $key => $value) {
+            $cleaned[$key] = $db->escape_string($value);
+        }
+        return $cleaned;
+    }
+
+
+/**
+ * General create method that get escaped versions of the attribute values
+ * and query this all to mysql
+ * @return bool true of success and false on fail
+ */
+    protected function create() {
+        $attributes = $this->sanitized_attributes();
+        $sql  = "INSERT INTO ".static::$table_name." (";
+        // join on , and space.
+        $sql .= join(", ", array_keys($attributes));
+        $sql .= ") VALUES ('"; // open first single to values
+        $sql .= join("', '", array_values($attributes));
+        $sql .= "')";
+
+        $result = $db->query($sql);
+        confirm_query($result, $sql);
+        if($result) {
+            $this->id = $db->insert_id;
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+
+/**
+ * Finding the attributes and the values I build a array, which the items are
+ * strings that will be ready for mysql. key='value', ...,
+ * @return bool true on success
+ */
+    protected function update() {
+
+        global $db;
+        $attributes = $this->sanitized_attributes();
+        $attribute_strings = array();
+        foreach($attributes as $key => $value) {
+            $attribute_strings[] = "{$key}='{$value}'";
+        }
+        $sql  = "UPDATE ".static::$table_name." SET ";
+        $sql .= join(", ", $attribute_strings);
+        $sql .= " WHERE id=". $db->escape_string($this->id);
+        $result = $db->query($sql);
+        confirm_query($result, $sql);
+        return ($db->affected_rows == 1) ? true : false;
+    }
+
 }
 
 ?>

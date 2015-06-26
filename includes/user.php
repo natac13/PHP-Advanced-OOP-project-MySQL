@@ -51,6 +51,9 @@ class User extends DatabaseObject {
         $this->password = $password;
         $this->first_name = $firstName;
         $this->last_name = $lastName;
+        if(!empty($this->password)) {
+            $this->hashed_password = $this->password_encrypt($this->password);
+        }
 
     }
 /**
@@ -197,6 +200,16 @@ class User extends DatabaseObject {
  * If there was a successful create then the instance's id get set to whatever
  * mysql gives back since it will auto increment in the database.
  *
+ * By changing the table name value to the static variable of the class
+ * calling it will make this and the other CRUD functions more abstract and
+ * therefore reusable.
+ *
+ * To abstract the attributes I need to first return an associative array of
+ * the key value pairings.
+ *
+ * I have found it easier to rewrite the CRUD for the user because I am using
+ * a hashed password.
+ *
  * @return boolean True on success and false on fail.
  */
     protected function create() {
@@ -206,16 +219,17 @@ class User extends DatabaseObject {
     // single quote around the values so they are literal and then I will
     // escape all values with escape_string() to prevent sql injects"
         if(!empty($this->username) && !empty($this->password)) {
-            $encrypt_pass = $this->password_encrypt($this->password);
-            $sql =  "INSERT INTO users (";
+            $sql =  "INSERT INTO ".static::$table_name." (";
             $sql .= "username, first_name, last_name, hashed_password";
             $sql .= ") VALUES (";
             $sql .= "'" . $db->escape_string($this->username) . "', ";
             $sql .= "'" . $db->escape_string($this->first_name) . "', ";
             $sql .= "'" . $db->escape_string($this->last_name) . "', ";
-            $sql .= "'" . $encrypt_pass . "')";
+            $sql .= "'" . $this->hashed_password . "')";
 
-            if($db->query($sql)) {
+            $result = $db->query($sql);
+            confirm_query($result, $sql);
+            if($result) {
                 $this->id = $db->insert_id;
                 return true;
             } else {
@@ -243,15 +257,15 @@ class User extends DatabaseObject {
     // escape all values with escape_string() to prevent sql injects"
     // Do not need single quote around integers like id.
 
-        $encrypt_pass = $this->password_encrypt($this->password);
-        $sql =  "UPDATE users SET ";
+        $sql =  "UPDATE ".static::$table_name." SET ";
         $sql .= "username='" . $db->escape_string($this->username) . "', ";
         // $sql .= "password='" . $db->escape_string($this->password) . "', ";
         $sql .= "first_name='" . $db->escape_string($this->first_name) . "', ";
         $sql .= "last_name='" . $db->escape_string($this->last_name) . "', ";
-        $sql .= "hashed_password='" . $encrypt_pass . "'";
+        $sql .= "hashed_password='" . $this->hashed_password . "'";
         $sql .= " WHERE id=" . $db->escape_string($this->id);
-        $db->query($sql);
+        $result = $db->query($sql);
+        confirm_query($result, $sql);
         return ($db->affected_rows == 1) ? true : false;
         }
 
@@ -275,10 +289,11 @@ class User extends DatabaseObject {
         global $db;
 
         if($this->password_check($password, $this->hashed_password)) {
-            $sql =  "DELETE FROM users ";
-            $sql .= "WHERE id=" . $db->escape_string($this->id);
+            $sql =  "DELETE FROM ".static::$table_name;
+            $sql .= " WHERE id=" . $db->escape_string($this->id);
             $sql .= " LIMIT 1";
             $result = $db->query($sql);
+            confirm_query($result, $sql);
             return ($db->affected_rows == 1) ? true : false;
 
         }
