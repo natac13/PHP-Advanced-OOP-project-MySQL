@@ -78,6 +78,23 @@ website. Then used the check_password method to hash the input text password
 with the same salt as the original. This is done since the first 22 characters
 are that salt itself!!
 
+9. I thought I should be removing the 'id' field from the array since it is
+not used in the create or update methods. I thought that it would mess up the
+create method since there is not id to insert into the database.
+However there becomes a very subtle break in the code somewhere that if I do
+not include the 'id' in the array of $db_fields then when I go to login I am
+unable to redirect to the index page. Almost like the session 'id' does not
+get set and therefore cannot be checked at the top of each page for logged in?
+    I believe I know where this occurs... is happens when I go from the data-
+base to a new User object like trying to login. This problem does not effect
+going from a User object to the database. Ok so, when finding the User by sql
+with that respective method uses the attributes() methods which is where I
+made the change with the $db_fields array. Instead of getting ALL attribute it
+now just gets the database fields. However if I do not include the 'id' as a
+field the program will then build the new User object without the 'id'
+attribute set and therefore the login page cannot set the session id off of
+the User object.
+
 
 
 

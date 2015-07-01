@@ -21,11 +21,23 @@ class User extends DatabaseObject {
  *  associative array I can assign that to the class attributes. This is done
  *  by the instantiate function of this class.
  *
+ * I can create a array of database column headers so that I do not need to
+ * re-write the create and update functions fully. The only thing I need to
+ * concern myself with per the video is checking for the hashed_password to
+ * match as well to up date the hashed_password before running the update()
+ * method so since it is only run in the __construct method it will not be
+ * updated since the process involves finding the user to update by id then
+ * modifying an attribute of that instance of the user then running the update
+ * so that the changes get 'pushed' to the database.
+ * Note 9
+ *
  * hashed_password could not be set to private because the Static form of the
  * class was trying to access it and if this was private it can only be
  * accessed by the instance itself.
  */
     protected static $table_name = "users";
+    protected static $db_fields = array('id', 'username', 'first_name',
+        'last_name', 'hashed_password');
     public $id;
     public $username;
     public $password;
@@ -35,9 +47,10 @@ class User extends DatabaseObject {
 
 /**
  * No reference to id because it will auto increment by mysql
- * NO reference to hashed_password because the hashing of the password only
- * needs to occur when I am accessing the database records someway, update,
- * create, or viewing.
+ * NO reference to hashed_password because the hashing of the password will
+ * occur at the end of this method and assign it to the attribute
+ * $hashed_password.
+ *
  * @param string $username  Empty by default since the instantiate method will
  * build a new object off the parent class' find methods and the returned data
  * from the database itself.
@@ -188,9 +201,6 @@ class User extends DatabaseObject {
     }
 
 /**
- * Don't need to send a value for id since it will auto update from the auto
- * increment in the database.
- *
  * I am checking if the instance's username and password are empty because
  * I am running this function in the __construct() which will get called when
  * instantiate() gets called which I do not want because no values are passed
@@ -199,10 +209,6 @@ class User extends DatabaseObject {
  *
  * If there was a successful create then the instance's id get set to whatever
  * mysql gives back since it will auto increment in the database.
- *
- * By changing the table name value to the static variable of the class
- * calling it will make this and the other CRUD functions more abstract and
- * therefore reusable.
  *
  * To abstract the attributes I need to first return an associative array of
  * the key value pairings.
@@ -219,68 +225,37 @@ class User extends DatabaseObject {
     // single quote around the values so they are literal and then I will
     // escape all values with escape_string() to prevent sql injects"
         if(!empty($this->username) && !empty($this->password)) {
-            $sql =  "INSERT INTO ".static::$table_name." (";
-            $sql .= "username, first_name, last_name, hashed_password";
-            $sql .= ") VALUES (";
-            $sql .= "'" . $db->escape_string($this->username) . "', ";
-            $sql .= "'" . $db->escape_string($this->first_name) . "', ";
-            $sql .= "'" . $db->escape_string($this->last_name) . "', ";
-            $sql .= "'" . $this->hashed_password . "')";
-
-            $result = $db->query($sql);
-            confirm_query($result, $sql);
-            if($result) {
-                $this->id = $db->insert_id;
-                return true;
-            } else {
-                return false;
-            }
+            return (parent::create()) ? true : false;
         }
         return false;
     }
 
-
-/**
- * Before calling this function I need to change one of the User object's
- * attributes so that something gets changed in the database.
- * Even if that change is to the password I only change the $password which
- * then will be hashed before it is updated and stored in the database.
- *
- * @return Boolean If there was a change then true, false is failed.
- */
-    protected function update() {
-        global $db;
-
-    // Don't forget the Sql syntax good habits
-    // "UPDATE [table_name] SET key='value', key='value',.. WHERE [condition]
-    // single quote around the values so they are literal and then I will
-    // escape all values with escape_string() to prevent sql injects"
-    // Do not need single quote around integers like id.
-
-        $sql =  "UPDATE ".static::$table_name." SET ";
-        $sql .= "username='" . $db->escape_string($this->username) . "', ";
-        // $sql .= "password='" . $db->escape_string($this->password) . "', ";
-        $sql .= "first_name='" . $db->escape_string($this->first_name) . "', ";
-        $sql .= "last_name='" . $db->escape_string($this->last_name) . "', ";
-        $sql .= "hashed_password='" . $this->hashed_password . "'";
-        $sql .= " WHERE id=" . $db->escape_string($this->id);
-        $result = $db->query($sql);
-        confirm_query($result, $sql);
-        return ($db->affected_rows == 1) ? true : false;
-        }
-
-/**
- * A new record will not have a id yet. Since when I create I pass in as
- * params everything but the id.
- * @return method If there is an id set then call update. If no id set then
- * call create.
- */
-    public function save() {
-        return isset($this->id) ? $this->update() : $this->create();
+    public function update_password($password) {
+        $this->hashed_password = $this->password_encrypt($password);
     }
+
+
+
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
+/// save() method taken from parent class like these other methods would be///
+/// if I was not checking the hashed password of the user class which I am ///
+/// just not sure fully yet to get around and still have just the abstract ///
+/// method but still able to hash the password and such.                   ///
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
 /**
  * Written so that the user would need to input the password to delete
+ *
+ * Because of the $password checking addition I again have to override the
+ * delete method and therefore have two versions of it.
+ *
+ * Changed so that after verifying the password through the password_check()
+ * method, I simple run the parent version of delete and return true if that
+ * is true. I could not simple run the parent method and get this method to
+ * return true. It did still delete the record though.
+ *
  * @param  string $password From a form that will be displayed when the user
  * wants to delete themselves.
  * @return boolean           True on successful delete and false otherwise.
@@ -289,13 +264,7 @@ class User extends DatabaseObject {
         global $db;
 
         if($this->password_check($password, $this->hashed_password)) {
-            $sql =  "DELETE FROM ".static::$table_name;
-            $sql .= " WHERE id=" . $db->escape_string($this->id);
-            $sql .= " LIMIT 1";
-            $result = $db->query($sql);
-            confirm_query($result, $sql);
-            return ($db->affected_rows == 1) ? true : false;
-
+            return (parent::delete()) ? true : false;
         }
     }
 }

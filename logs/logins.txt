@@ -1,31 +1,10 @@
-Log file cleared @ 2015/06/23 11:45:24, User ID: 9
-Logout: natac13 @ 2015-06-23 11:45:28
-Login: natac13 @ 2015-06-23 11:45:35
-Logout: natac13 @ 2015-06-23 11:45:41
-Login: natac13 @ 2015-06-23 11:51:04
-Logout: natac13 @ 2015-06-23 11:54:44
-Login: natac13 @ 2015-06-23 11:55:16
-Logout: natac13 @ 2015-06-23 11:56:32
-Login: natac13 @ 2015-06-23 11:56:37
-Logout: natac13 @ 2015-06-23 12:11:12
-Login: natac13 @ 2015-06-23 12:11:24
-Logout: natac13 @ 2015-06-23 12:11:39
-Login: natac13 @ 2015-06-23 12:11:44
-Logout:  @ 2015-06-23 12:17:22
-Login: natac13 @ 2015-06-23 12:17:29
-Logout: natac13 @ 2015-06-23 12:17:37
-Login: natac13 @ 2015-06-23 12:17:43
-Login: natac13 @ 2015-06-23 12:19:24
-Logout: natac13 @ 2015-06-23 12:32:30
-Login: natac13 @ 2015-06-23 12:32:35
-Logout: natac13 @ 2015-06-23 12:33:34
-Login: Boomer @ 2015-06-23 12:33:42
-Logout: Boomer @ 2015-06-23 12:33:48
-Login: Boomer @ 2015-06-23 12:33:54
-Login: natac13 @ 2015-06-24 13:11:26
-Logout: natac13 @ 2015-06-24 13:12:28
-Login: natac13 @ 2015-06-24 13:12:38
-Logout: natac13 @ 2015-06-24 13:27:46
-Login: Boomer @ 2015-06-24 13:27:52
-Login: natac13 @ 2015-06-25 21:57:45
-Login: natac13 @ 2015-06-26 00:40:13
+Log file cleared @ 2015/06/26 12:01:11, User ID: 12
+Logout: natac13 @ 2015-06-26 12:01:19
+Login: attritest @ 2015-07-01 12:56:11
+Login: attritest @ 2015-07-01 12:56:17
+Login: natac13 @ 2015-07-01 12:56:38
+Login: natac13 @ 2015-07-01 13:01:53
+Logout: natac13 @ 2015-07-01 13:02:11
+Login: attritest @ 2015-07-01 13:02:18
+Logout: attritest @ 2015-07-01 13:46:33
+Login: attritest @ 2015-07-01 13:46:43

@@ -140,7 +140,14 @@ class DatabaseObject {
  * @return assoc key, value pairing of class variables
  */
     protected function attributes() {
-        return get_object_vars($this);
+        // return get_object_vars($this);
+        $attributes = array();
+        foreach(static::$db_fields as $field) {
+            if(property_exists($this, $field)) {
+                $attributes[$field] = $this->$field;
+            }
+        }
+        return $attributes;
     }
 
 /**
@@ -161,9 +168,14 @@ class DatabaseObject {
 /**
  * General create method that get escaped versions of the attribute values
  * and query this all to mysql
+ * By changing the table name value to the static variable of the class
+ * calling it will make this and the other CRUD functions more abstract and
+ * therefore reusable.
  * @return bool true of success and false on fail
  */
     protected function create() {
+        global $db;
+
         $attributes = $this->sanitized_attributes();
         $sql  = "INSERT INTO ".static::$table_name." (";
         // join on , and space.
@@ -186,11 +198,17 @@ class DatabaseObject {
 /**
  * Finding the attributes and the values I build a array, which the items are
  * strings that will be ready for mysql. key='value', ...,
+ *
+ * Before calling this function I need to change one of the object's
+ * attributes so that something gets changed in the database.
+ *
+ * If this change is to the password of the User class then I will run
+ * update_password() first so that the hashed password is changed.
  * @return bool true on success
  */
     protected function update() {
-
         global $db;
+
         $attributes = $this->sanitized_attributes();
         $attribute_strings = array();
         foreach($attributes as $key => $value) {
@@ -199,6 +217,28 @@ class DatabaseObject {
         $sql  = "UPDATE ".static::$table_name." SET ";
         $sql .= join(", ", $attribute_strings);
         $sql .= " WHERE id=". $db->escape_string($this->id);
+        $result = $db->query($sql);
+        confirm_query($result, $sql);
+        return ($db->affected_rows == 1) ? true : false;
+    }
+
+/**
+ * A new record will not have a id yet. Since when I create I pass in as
+ * params everything but the id.
+ * @return method If there is an id set then call update. If no id set then
+ * call create.
+ */
+    public function save() {
+        return isset($this->id) ? $this->update() : $this->create();
+    }
+
+
+    public function delete() {
+        global $db;
+
+        $sql =  "DELETE FROM ".static::$table_name;
+        $sql .= " WHERE id=" . $db->escape_string($this->id);
+        $sql .= " LIMIT 1";
         $result = $db->query($sql);
         confirm_query($result, $sql);
         return ($db->affected_rows == 1) ? true : false;

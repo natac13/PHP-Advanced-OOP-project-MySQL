@@ -14,25 +14,25 @@ require_once('../../includes/initialize.php');
 // echo $new_user->id;
 
 
-// $updat_user = User::find_by_id(3);
+$updat_user = User::find_by_id(22);
 // $updat_user->last_name = "paslawski";
-// $updat_user->save();
-// echo $updat_user->full_name();
+$updat_user->update_password('test');
+$updat_user->save();
+echo $updat_user->full_name();
 echo "<hr>";
 
-$new_user = new User("joining", "test", "joe", "smith");
-$new_user->save();
-echo $new_user->id;
-echo "<br>";
-echo $new_user->full_name();
+// $new_user = new User("attritest", "check", "adam", "Groge");
+// $new_user->save();
+// echo $new_user->id;
+// echo "<br>";
+// echo $new_user->full_name();
 
 // $x = User::find_by_id(9);
 // $x->password = "testing";
 // $x->save();
 
-$x = User::find_by_id(17);
-
-// echo ($x->delete('yellow')) ? $x->first_name . " was deleted" : 'nop';
+// $x = User::find_by_id(21);
+// echo ($x->delete('test')) ? $x->first_name . " was deleted" : 'nop';
 
 
 ?>
