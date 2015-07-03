@@ -7,3 +7,4 @@ Anytime that I call query() method from the class I do the confirm_query() metho
 
 June 14th 2015
 Next task is making a user class that will handle all things that have to do with the user. This is finding users, and letting that usr interact with the database. There is no pre-made class for this so I finally get to build one along with the tutorials.
+

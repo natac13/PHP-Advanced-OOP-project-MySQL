@@ -27,5 +27,6 @@ require_once(LIB_PATH.DS.'log_object.php');
 
 // load database related objects, or the ones that use the database
 require_once(LIB_PATH.DS.'user.php');
+require_once(LIB_PATH.DS.'photograph.php');
 
 ?>

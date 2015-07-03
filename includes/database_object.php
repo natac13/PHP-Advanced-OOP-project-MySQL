@@ -6,8 +6,6 @@ class DatabaseObject {
 
     protected static $table_name;
 
-
-
 //////////////////////////////////////////////////////////////////////////////
 //////////////////                                   /////////////////////////
 //////////////////      Common Database Methods      /////////////////////////
@@ -86,7 +84,7 @@ class DatabaseObject {
         while($row = $result_set->fetch_assoc()) {
             $object_array[] = static::instantiate($row);
         }
-        return $object_array; // ...of Users of rows from database
+        return $object_array; // ...of Users/photos of rows from database
     }
 
 /**

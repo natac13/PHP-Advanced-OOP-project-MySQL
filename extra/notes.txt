@@ -95,6 +95,10 @@ field the program will then build the new User object without the 'id'
 attribute set and therefore the login page cannot set the session id off of
 the User object.
 
+10. Just want to point out that I have to make the images directory readable
+and writeable by the web server itself which is www-data.
+
+
 
 
 
