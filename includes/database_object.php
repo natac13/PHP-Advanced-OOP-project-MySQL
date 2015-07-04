@@ -151,7 +151,8 @@ class DatabaseObject {
 /**
  * Cleans the values of the class variables which get submitted to the
  * database and therefore need to be escaped.
- * @return assoc Variables as keys with escaped values.
+ * @return assoc With the instance's variables/attribute as keys with
+ * real_escape_string() run on the values.
  */
     protected function sanitized_attributes() {
         global $db;

@@ -90,10 +90,62 @@ class Photograph extends DatabaseObject {
         }
         else {
             // Set the attribute to the form parameters
+            // basename() returns the filename itself with extension.
         $this->temp = $file['tmp_name'];
         $this->filename = basename($file['name']);
         $this->type = $file['type'];
         $this->size = $file['size'];
+        }
+    }
+
+/**
+ * Bases on whether the instance's $id is set this will run either the
+ * update() or the create() method.
+ * A new record will no have an $id set yet as it is done so by the database.
+ *
+ * Update will really just be to update caption
+ *
+ * @return bool true if file was updated or created successfully, false
+ * otherwise.
+ */
+    public function save() {
+        if(isset($this->id)) {
+            $this->update();
+            return true;
+        } else {
+            // Make sure there are no errors
+            // could be either the php ones or mine that are collected in the
+            // $errors array()
+            if(!empty($this->errors)) { return false; }
+
+            if(empty($this->filename) || empty($this->temp_path)) {
+                $this->errors[] = "The file location was not available. Either
+                the filename or the temporary path is missing.";
+                return false;
+            }
+
+            // Determine the target path
+            $target_path = SITE_ROOT .DS. 'public' .DS. $this->upload_dir .DS.
+            $this->filename;
+
+            if(file_exists($target_path)) {
+                $this->errors[] = "File: {$this->filename} already exists.
+                Please change the name of the file you are trying to upload.";
+                return false;
+            }
+            // Attempt to move the file
+            if(move_uploaded_file($this->temp_path, $target_path)) {
+                if($this->create()) {
+                    unset($this->temp_path);
+                    return true;
+                }
+            } else {
+                $this->errors[] = "The file upload failed, possibly due to
+                incorrect permissions on the upload folder.";
+                return false;
+            }
+            // Save a corresponding entry to the database
+            $this->create();
         }
     }
 }
