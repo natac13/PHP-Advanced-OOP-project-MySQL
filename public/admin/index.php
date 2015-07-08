@@ -22,6 +22,8 @@ $user = User::find_by_id($session->user_id);
 
 <ul>
     <li><a href="log_file.php">View Log File</a></li>
+    <li><a href="photo_upload.php">Photo Upload</a></li>
+    <li><a href="list_photo.php">View Photo List</a></li>
     <li><a href="logout.php">Logout</a></li>
 </ul>
 

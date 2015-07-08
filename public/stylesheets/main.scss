@@ -1,9 +1,9 @@
 // Site colors
 
-$blue_grey:#1A446C;
+$grey:#6D6D6D;
 $light_blue:#689DC1;
 $very_light_blue:#D4E6F4;
-$light_tan:#EEE4B9;
+$light_green:#CDFFC8;
 $burgundy:#8D0D19;
 
 html {
@@ -39,7 +39,7 @@ a {
 header {
     height: 70px;
     text-align: left;
-    background: $blue_grey;
+    background: $grey;
     color: $very_light_blue;
 
     h1 {
@@ -51,7 +51,7 @@ header {
 main {
     min-height: 600px;
     width: 100%;
-    background: $light_tan;
+    background: $light_green;
     padding: 2em;
 }
 
@@ -59,7 +59,7 @@ footer {
     height: 2em;
     padding: 1em;
     text-align: center;
-    background: $blue_grey;
+    background: $grey;
     color: $very_light_blue;
 }
 

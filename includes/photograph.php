@@ -7,6 +7,7 @@ require_once(LIB_PATH.DS."database.php");
  * static binding
  * @param array    $db_fields  Use in the attribute() methods so that the
  * abstracted create and update methods are usable when they join the queries
+ * @param int      $max_photo_size Is equal to the php.ini's max_file_size.
  * @param int      $id         From the database as it auto_increments
  * @param string   $filename   Set to the $_FILE['name'] by calling basename()
  * to only return the name without the extension
@@ -34,6 +35,7 @@ class Photograph extends DatabaseObject {
     protected static $table_name = "photographs";
     protected static $db_fields = array('id', 'filename', 'type', 'size',
         'caption');
+    public static $max_photo_size = 5242880; // 5mb
     public $id;
     public $filename;
     public $type;
@@ -70,7 +72,8 @@ class Photograph extends DatabaseObject {
  * @param  assoc $file This is from the super global $_FILE which is an array
  * itself that as all the uploaded files with keys as which are from the form
  * submission.
- * @return [type]       [description]
+ * @return bool       True if class attribute set to the photo info, false
+ * otherwise.
  */
     public function attach_file($file) {
         // Check for errors
@@ -91,11 +94,13 @@ class Photograph extends DatabaseObject {
         else {
             // Set the attribute to the form parameters
             // basename() returns the filename itself with extension.
-        $this->temp = $file['tmp_name'];
+        $this->temp_path = $file['tmp_name'];
         $this->filename = basename($file['name']);
         $this->type = $file['type'];
         $this->size = $file['size'];
+        return true;
         }
+        return false;
     }
 
 /**
@@ -146,6 +151,22 @@ class Photograph extends DatabaseObject {
             }
             // Save a corresponding entry to the database
             $this->create();
+        }
+    }
+
+    public function image_path() {
+        return $this->upload_dir . DS . $this->filename;
+    }
+
+    public function size_as_text() {
+        if($this->size < 1024) {
+            return "{$this->size} bytes.";
+        } elseif($this->size <1048576) {
+            $size_kb = round($this->size/1024);
+            return "{$size_kb} KB";
+        } else {
+            $size_mb = round($this->size/1048576, 1);
+            return "{$size_mb} MB";
         }
     }
 }

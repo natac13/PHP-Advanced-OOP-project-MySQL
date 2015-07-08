@@ -34,7 +34,7 @@ require_once('../../includes/initialize.php');
 // $x = User::find_by_id(21);
 // echo ($x->delete('test')) ? $x->first_name . " was deleted" : 'nop';
 
-
+$message = "";
 if(isset($_POST['submit'])) {
     // process the form!!!
     // for demo I am just outputting some info about the file that would be
@@ -48,19 +48,25 @@ if(isset($_POST['submit'])) {
     $photo->attach_file($_FILES['file_upload']);
     // $photo->save();
     echo $photo->filename;
+    $photo->caption = $_POST['caption'];
+    if($photo->save()) {
+        $message = "Success";
+    } else {
+        $message = join("<br>", $photo->errors);
+    }
 }
 
-if(!empty($photo->errors)) {
-    foreach($photo->errors as $error) {
-        echo $error;
-    }
+
 }
 ?>
 
-
+<?php
+echo output_message($message);
+?>
 <form action="test.php" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
-    <input type="hidden" name="MAX_FILE_SIZE" value="1000000">
+    <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo Photograph::$max_photo_size; ?>">
     <input type="file" name="file_upload" value="upload_file">
+    <p>Cation:<input type="text" name="caption" value="" placeholder="Caption"></p>
     <input type="submit" name="submit" value="Upload">
 </form>
 <?php include_layout_template('admin_footer.php'); ?>

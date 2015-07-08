@@ -26,7 +26,7 @@ a {
 header {
   height: 70px;
   text-align: left;
-  background: #1A446C;
+  background: #6D6D6D;
   color: #D4E6F4; }
   header h1 {
     padding: 1em;
@@ -35,14 +35,14 @@ header {
 main {
   min-height: 600px;
   width: 100%;
-  background: #EEE4B9;
+  background: #CDFFC8;
   padding: 2em; }
 
 footer {
   height: 2em;
   padding: 1em;
   text-align: center;
-  background: #1A446C;
+  background: #6D6D6D;
   color: #D4E6F4; }
 
 table.bordered tr th, table.bordered tr td {
