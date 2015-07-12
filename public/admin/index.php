@@ -16,7 +16,13 @@ $user = User::find_by_id($session->user_id);
 ?>
 
 <?php  include_layout_template('admin_header.php'); ?>
-
+<?php
+// Note 11
+// session.php runs first and sets the variable $message to
+// anything that was in the $_SESSION['message'] variable. Thats why I see no
+// assignment of $message
+echo output_message($message);
+?>
 <p>Welcome: <?php echo $user->full_name(); ?></p>
 <h2>Menu</h2>
 

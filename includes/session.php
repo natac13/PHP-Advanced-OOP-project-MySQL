@@ -4,20 +4,29 @@ require_once('log_object.php');
 /**
  * A class to help work with sessions
  * In my case, this primarily to manage logging users in and out
- * Keep in mind when working with sessions that it is henerally inadvisable to
+ * Keep in mind when working with sessions that it is generally inadvisable to
  * store DB-related objects in the session. This is because these object can
  * become stale, meaning that the user object in the database changed in
  * relation to the session's user. And two, these object can be very large in
  * size so it would burn out memory
+ *
+ * @param  bool  $logged_in  True when a user is logged in and false otherwise
+ * @param  int   $user_id    Set to the id of the user from the database
+ * @param  string  $message  Set to any message I want to transfer from page
+ * to page
+ * @param  object  $user     This is one of my User objects that get returned
+ * by the find methods in the DatabaseObject class.
  */
 class Session {
 
     private $logged_in = false;
     public $user_id;
+    public $message;
     private $user;
 
     function __construct() {
         session_start();
+        $this->check_message();
         $this->check_if_login();
         // if($this->logged_in == true) {
         //     $this->user = User::find_by_id($this->user_id);
@@ -69,6 +78,29 @@ class Session {
         $this->logged_in = false;
     }
 
+
+/**
+ * I could break this into two function called set message and get message but
+ * this is a really cool concept to grasp
+ * @param  string $msg A string that will be a message to set the
+ * actual $_SESSION['message'] variable to
+ * @return string      This is the instance's $message attribute that is
+ * returned.
+ */
+    public function message($msg="") {
+        // this will be true if passed an argument
+        // false if no $msg passed therefore return
+        if(!empty($msg)) {
+            $_SESSION['message'] = $msg;
+            // I think I should set the instance's attribute of $message here
+            // as well.... or not since if one was already set and displayed
+            // on the screen it would get changed as soon as the new message
+            // is set.
+        } else {
+            return $this->message;
+        }
+    }
+
 /**
  * Will check to see if the session's user_id is set and if so then it will
  * set a flag to true to show that that user is logged in with that particular
@@ -97,6 +129,16 @@ class Session {
         }
     }
 
+    private function check_message() {
+        if(isset($_SESSION['message'])) {
+            // add to attributes and erase from the session variable
+            $this->message = $_SESSION['message'];
+            unset($_SESSION['message']);
+        } else {
+            $this->message = "";
+        }
+    }
+
 
     public function get_username() {
         // return $_SESSION['username'];
@@ -106,4 +148,6 @@ class Session {
 }
 
 $session = new Session();
+// will be empty string if not set yet, because of check_message().
+$message = $session->message();
 ?>

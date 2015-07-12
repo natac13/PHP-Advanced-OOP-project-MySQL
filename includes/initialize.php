@@ -11,6 +11,9 @@ defined('DS') ? null : define('DS', DIRECTORY_SEPARATOR);
 defined('SITE_ROOT') ? null :
     define('SITE_ROOT', DS.'var'.DS.'www'.DS.'sandbox'.DS.'photo_gallery');
 
+defined('LOG_FILE') ? null :
+    define('LOG_FILE', SITE_ROOT.DS.'logs/logins.txt');
+
 defined('LIB_PATH') ? null : define('LIB_PATH', SITE_ROOT.DS.'includes');
 
 // config file to be loaded first

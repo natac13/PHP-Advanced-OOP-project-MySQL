@@ -6,7 +6,7 @@ if(!$session->is_logged_in()) {
     redirect_to('login.php');
 }
 
-$message = "";
+
 if(isset($_POST['submit'])) {
 
     $photo = new Photograph();
@@ -15,7 +15,9 @@ if(isset($_POST['submit'])) {
     echo $photo->filename;
     $photo->caption = $_POST['caption'];
     if($photo->save()) {
-        $message = "Success";
+        // Note 12.
+        $session->message("Photograph Upload successfully.");
+        redirect_to("list_photo.php");
     } else {
         $message = join("<br>", $photo->errors);
     }
@@ -30,12 +32,27 @@ if(isset($_POST['submit'])) {
 
 
 <?php
+// Note 11
 echo output_message($message);
 ?>
 <form action="photo_upload.php" method="POST" accept-charset="utf-8" enctype="multipart/form-data">
-    <input type="hidden" name="MAX_FILE_SIZE" value="<?php echo Photograph::$max_photo_size; ?>">
-    <input type="file" name="file_upload" value="upload_file">
-    <p>Cation: <input type="text" name="caption" value="" placeholder="Caption"></p>
-    <input type="submit" name="submit" value="Upload">
+<fieldset>
+    <legend>Upload Photo</legend>
+        <input type="hidden" name="MAX_FILE_SIZE"
+            value="<?php echo Photograph::$max_photo_size; ?>">
+
+        <label for="file_upload">File:</label>
+        <input type="file" name="file_upload" value="upload_file"
+            id="file_upload" required>
+
+        <br>
+
+        <label for="caption">Caption:</label>
+        <input type="text" name="caption" value="" placeholder="Caption"
+            id="caption" title="A description of the photo." required>
+
+        <input type="submit" id="submit" name="submit" value="Upload">
+</fieldset>
+
 </form>
 <?php include_layout_template('admin_footer.php'); ?>

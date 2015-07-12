@@ -29,36 +29,31 @@ if(isset($_POST['submit'])) {
 } else { // Form not submitted
     $username = "";
     $password = "";
-    $message = "";
+    // $message = "";
 }
 ?>
 
 <?php  include_layout_template('admin_header.php'); ?>
-        <h2>Staff Login</h2>
-        <?php
-        echo output_message($message);
-        ?>
-        <form action="login.php" method="post" accept-charset="utf-8">
-            <table>
-                <tr>
-                    <td>Username:</td>
-                    <td>
-                        <input type="text" name="username" maxlength="30"
-                        value="<?php echo htmlentities($username); ?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td>Password:</td>
-                    <td>
-                        <input type="password" name="password" maxlength="30"
-                        value="<?php echo htmlentities($password); ?>">
-                    </td>
-                </tr>
-                <tr>
-                    <td>
-                        <input type="submit" name="submit" value="Login">
-                    </td>
-                </tr>
-            </table>
-        </form>
+<h2>Staff Login</h2>
+<?php
+echo output_message($message);
+?>
+<form id="login" action="login.php" method="POST" accept-charset="utf-8">
+<fieldset>
+<legend>User Login</legend>
+    <label for="username">Username:</label>
+    <input type="text" name="username" id="username" pattern="\w{4,30}"
+                value="<?php echo htmlentities($username); ?>" required
+                title="Enter username 4-30 characters.">
+    <br>
+    <label for="password">Password:</label>
+    <input type="password" name="password" id="password" pattern="\w{2,30}"
+                value="<?php echo htmlentities($password); ?>" required
+                title="Enter Password 2-30 characters.">
+    <input type="submit" id="submit" name="submit" value="Login">
+</fieldset>
+</form>
+
+
+
 <?php include_layout_template('admin_footer.php'); ?>

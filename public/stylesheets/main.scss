@@ -66,3 +66,54 @@ footer {
 table.bordered tr th, table.bordered tr td {
     border: 1px solid #000000;
 }
+
+
+label {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+input {
+    float: right;
+    margin-right: 50px;
+}
+
+#file_upload {
+    margin-right: 0px;
+}
+
+#caption {
+    margin-right: 70px
+}
+
+input:invalid {
+    background-color: #FFB9AE
+}
+
+input:valid {
+    background-color: #A1FFBA
+}
+
+#username {
+    float: right;
+}
+
+form {
+    margin-right: 1500px;
+}
+
+legend {
+    font-size: 1.25em;
+    color: #017545;
+}
+fieldset {
+    -webkit-border-radius: 5px;
+     border-radius: 5px;
+    padding: 10px;
+    border-color: #017545;
+}
+
+#submit {
+    margin-left: 50px;
+    background-color: lightgrey;
+}

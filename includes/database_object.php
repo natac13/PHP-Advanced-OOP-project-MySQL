@@ -55,7 +55,8 @@ class DatabaseObject {
  */
     public static function find_by_id($id=0) {
         global $db;
-        $sql= "SELECT * FROM " . static::$table_name . " WHERE id={$id}";
+        $sql= "SELECT * FROM " . static::$table_name . " WHERE id=" .
+            $db->escape_string($id) . " LIMIT 1";
         $result_array = static::find_by_sql($sql); // ie. array...of one User
         return !empty($result_array) ? array_shift($result_array) : false;
     }
@@ -98,14 +99,13 @@ class DatabaseObject {
  * object's variables.
  * $record "$value" that goes with this "$attribute" get assigned to
  * $object->$attribute
- * Long description: "../extra/notes.txt".
+ * Long description: "../extra/notes.txt". 1-3
  * @param  object $record mysqli_result_object from the already made instance
  * the record is the same as calling it a row from the database.
  * @return object         This is a Object that is of the same class that
  * calls it.
  */
     private static function instantiate($record) {
-        $class_name = get_called_class();
         $object = new static;
         foreach($record as $attribute=>$value) {
             if($object->has_attribute($attribute)) {
@@ -235,7 +235,7 @@ class DatabaseObject {
     public function delete() {
         global $db;
 
-        $sql =  "DELETE FROM ".static::$table_name;
+        $sql =  "DELETE FROM ". static::$table_name;
         $sql .= " WHERE id=" . $db->escape_string($this->id);
         $sql .= " LIMIT 1";
         $result = $db->query($sql);

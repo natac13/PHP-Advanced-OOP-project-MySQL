@@ -16,6 +16,15 @@ $photos = Photograph::find_all();
 
 <h2>Photographs</h2>
 
+<?php
+// Note 11
+// session.php runs first and sets the variable $message to
+// anything that was in the $_SESSION['message'] variable. Thats why I see no
+// assignment of $message
+echo output_message($message);
+?>
+
+&laquo;<a href="index.php">Admin Home</a>
 <table class="bordered">
     <thead>
         <tr>
@@ -24,6 +33,7 @@ $photos = Photograph::find_all();
             <th>Caption</th>
             <th>Size</th>
             <th>Type</th>
+            <th>&nbsp;</th>
         </tr>
     </thead>
 
@@ -37,6 +47,8 @@ $photos = Photograph::find_all();
             <td><?php echo $photo->caption; ?></td>
             <td><?php echo $photo->size_as_text(); ?></td>
             <td><?php echo $photo->type; ?></td>
+            <td><a href="delete_photo.php?id=<?php echo $photo->id; ?>"</a>
+            Delete Photo</td>
         </tr>
     <?php } ?>
     </tbody>

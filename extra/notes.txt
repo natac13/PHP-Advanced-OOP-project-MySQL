@@ -98,6 +98,21 @@ the User object.
 10. Just want to point out that I have to make the images directory readable
 and writeable by the web server itself which is www-data.
 
+11. Anytime now that I run output_message() the variable $message that is
+passed in will be set from the session.php page, even though it maybe empty
+from the check_message() in the __construct() method of the class.
+
+On list_photos.php, session.php runs first and sets the variable $message
+to anything that was in the $_SESSION['message'] variable. Thats why I see no
+call to $message or even having to do anything more to retrieve the message
+itself beside copy this little bit of code to any page now
+
+12. What is happening is that the form to upload the photo file is submitting
+to itself. However, apoun success it will save a message with the $session
+object's method, message(). Then the user is redirected to the list_photo.php
+page with the $message variable which was set in the session.php file, being
+output by the output_message() function.
+
 
 
 

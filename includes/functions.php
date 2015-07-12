@@ -57,7 +57,7 @@ function output_message($message="") {
  * classes inside other classes. The class file itself needs to have
  * require_once to the class file it is trying to access.
  *
- * while seeing what happens without this function I fins that the ordering
+ * while seeing what happens without this function I find that the ordering
  * of the initialize.php file is unable to obtain what I need it to happen,
  * with regards to the ordering since the session class is calling the classes
  * below it.
@@ -85,22 +85,22 @@ function include_layout_template($template="") {
     include(SITE_ROOT.DS.'public'.DS.'layouts'.DS.$template);
 }
 
-function log_action($action, $message="") {
-    $log_file = LOG_PATH.DS."login_times.txt";
-    if(!file_exists($log_file)) {
-        $new_file = fopen($log_file, 'wb');
-        fclose($new_file);
-    }
+// function log_action($action, $message="") {
+//     $log_file = LOG_PATH.DS."login_times.txt";
+//     if(!file_exists($log_file)) {
+//         $new_file = fopen($log_file, 'wb');
+//         fclose($new_file);
+//     }
 
-    if(!is_writable($log_file)) {
-        echo "ERROR: need to change file permission." . $log_file;
-    } else {
-        if($handle = fopen($log_file, 'ab')) {
-            fwrite($message . "\n");
-            fclose($log_file);
-        }
-    }
+//     if(!is_writable($log_file)) {
+//         echo "ERROR: need to change file permission." . $log_file;
+//     } else {
+//         if($handle = fopen($log_file, 'ab')) {
+//             fwrite($message . "\n");
+//             fclose($log_file);
+//         }
+//     }
 
-}
+// }
 
 ?>

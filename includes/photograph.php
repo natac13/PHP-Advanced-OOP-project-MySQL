@@ -154,6 +154,21 @@ class Photograph extends DatabaseObject {
         }
     }
 
+/**
+ * First remove the database entry, then second remove the file itself.
+ *
+ * Runs the delete() method which is found in the DatabaseObject.
+ * @return bool true if both the delete() method is true and the unlink() is
+ * true, false otherwise.
+ */
+    public function destroy() {
+        if($this->delete()) {
+            $target_path = SITE_ROOT .DS. 'public' .DS. $this->image_path();
+            return unlink($target_path) ? true : false;
+        } else {
+            return false;
+        }
+    }
     public function image_path() {
         return $this->upload_dir . DS . $this->filename;
     }
