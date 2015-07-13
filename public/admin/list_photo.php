@@ -24,7 +24,6 @@ $photos = Photograph::find_all();
 echo output_message($message);
 ?>
 
-&laquo;<a href="index.php">Admin Home</a>
 <table class="bordered">
     <thead>
         <tr>
@@ -33,6 +32,7 @@ echo output_message($message);
             <th>Caption</th>
             <th>Size</th>
             <th>Type</th>
+            <th>Created</th>
             <th>&nbsp;</th>
         </tr>
     </thead>
@@ -47,6 +47,7 @@ echo output_message($message);
             <td><?php echo $photo->caption; ?></td>
             <td><?php echo $photo->size_as_text(); ?></td>
             <td><?php echo $photo->type; ?></td>
+            <td><?php echo $photo->datetime_to_text(); ?></td>
             <td><a href="delete_photo.php?id=<?php echo $photo->id; ?>"</a>
             Delete Photo</td>
         </tr>

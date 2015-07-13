@@ -243,6 +243,15 @@ class DatabaseObject {
         return ($db->affected_rows == 1) ? true : false;
     }
 
+    public function datetime_to_text() {
+        if(isset($this->created)) {
+            $datetime = $this->created;
+            $unix_datetime = strtotime($datetime);
+            return strftime("%B %d, %Y at %I:%M %p", $unix_datetime);
+        } else {
+            return "";
+        }
+    }
 
 }
 

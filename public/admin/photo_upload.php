@@ -11,7 +11,6 @@ if(isset($_POST['submit'])) {
 
     $photo = new Photograph();
     $photo->attach_file($_FILES['file_upload']);
-    // $photo->save();
     echo $photo->filename;
     $photo->caption = $_POST['caption'];
     if($photo->save()) {

@@ -86,10 +86,6 @@ class Comment extends DatabaseObject {
         return self::find_by_sql($sql);
     }
 
-    public function datetime_to_text() {
-        $datetime = $this->created;
-        $unix_datetime = strtotime($datetime);
-        return strftime("%B %d, %Y at %I:%M %p", $unix_datetime);
-    }
+
 }
 ?>

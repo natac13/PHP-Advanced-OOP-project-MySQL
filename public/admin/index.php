@@ -10,7 +10,6 @@ if(!$session->is_logged_in()) {
  * Using the $session->id which is the same as $_SESSION['user_id'] to call
  * static method find_by_id() which will return an User Object when used with
  * the User class.
- * @var int which i s ultimately from the database
  */
 $user = User::find_by_id($session->user_id);
 ?>
@@ -30,6 +29,8 @@ echo output_message($message);
     <li><a href="log_file.php">View Log File</a></li>
     <li><a href="photo_upload.php">Photo Upload</a></li>
     <li><a href="list_photo.php">View Photo List</a></li>
+    <li><a href="new_user.php">Create New User</a></li>
+    <li><a href="list_users.php">View User List</a></li>
     <li><a href="logout.php">Logout</a></li>
 </ul>
 

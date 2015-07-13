@@ -37,12 +37,14 @@ class User extends DatabaseObject {
  */
     protected static $table_name = "users";
     protected static $db_fields = array('id', 'username', 'first_name',
-        'last_name', 'hashed_password');
+        'last_name', 'hashed_password', 'created');
+
     public $id;
     public $username;
     public $password;
     public $first_name;
     public $last_name;
+    public $created;
     protected $hashed_password;
 
 /**
@@ -51,19 +53,23 @@ class User extends DatabaseObject {
  * occur at the end of this method and assign it to the attribute
  * $hashed_password.
  *
- * @param string $username  Empty by default since the instantiate method will
+ * Empty by default since the instantiate method will
  * build a new object off the parent class' find methods and the returned data
  * from the database itself.
+ *
+ * @param string $username  To be inserted into database after assigning them
+ * to the attributes of the instance.
  * @param string $password  Same as above
  * @param string $firstName Same as above
  * @param string $lastName  Same as above
  */
     public function __construct($username="", $password="", $firstName="",
                                 $lastName="") {
-        $this->username = $username;
-        $this->password = $password;
+        $this->username   = $username;
+        $this->password   = $password;
         $this->first_name = $firstName;
-        $this->last_name = $lastName;
+        $this->last_name  = $lastName;
+        $this->created    = strftime("%Y-%m-%d %H:%M:%S", time());
         if(!empty($this->password)) {
             $this->hashed_password = $this->password_encrypt($this->password);
         }
@@ -260,12 +266,12 @@ class User extends DatabaseObject {
  * wants to delete themselves.
  * @return boolean           True on successful delete and false otherwise.
  */
-    public function delete($password) {
-        global $db;
+    // public function delete($password) {
+    //     global $db;
 
-        if($this->password_check($password, $this->hashed_password)) {
-            return (parent::delete()) ? true : false;
-        }
-    }
+    //     if($this->password_check($password, $this->hashed_password)) {
+    //         return (parent::delete()) ? true : false;
+    //     }
+    // }
 }
 ?>

@@ -46,13 +46,14 @@ class Photograph extends DatabaseObject {
 
     protected static $table_name = "photographs";
     protected static $db_fields = array('id', 'filename', 'type', 'size',
-        'caption');
+        'caption', 'created');
     public static $max_photo_size = 5242880; // 5mb
     public $id;
     public $filename;
     public $type;
     public $size;
     public $caption;
+    public $created;
 
     private $temp_path;
     protected $upload_dir = "images";
@@ -110,6 +111,7 @@ class Photograph extends DatabaseObject {
         $this->filename = basename($file['name']);
         $this->type = $file['type'];
         $this->size = $file['size'];
+        $this->created = strftime("%Y-%m-%d %H:%M:%S", time());
         return true;
         }
         return false;
@@ -161,8 +163,6 @@ class Photograph extends DatabaseObject {
                 incorrect permissions on the upload folder.";
                 return false;
             }
-            // Save a corresponding entry to the database
-            $this->create();
         }
     }
 
