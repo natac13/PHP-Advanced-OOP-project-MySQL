@@ -51,7 +51,7 @@ echo output_message($message);
         <input type="text" name="caption" value="" placeholder="Caption"
             id="caption" title="A description of the photo." required>
 
-        <input type="submit" id="submit" name="submit" value="Upload">
+        <input type="submit" class="submit" name="submit" value="Upload">
 </fieldset>
 
 </form>

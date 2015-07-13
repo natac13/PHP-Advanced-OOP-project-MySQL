@@ -8,7 +8,7 @@ $photos = Photograph::find_all();
 <?php include_layout_template("header.php"); ?>
 
 <h2>Photographs</h2>
-<?php output_message($message); ?>
+<?php echo output_message($message); ?>
 <ul id="photos">
     <?php foreach($photos as $photo) { ?>
     <li>

@@ -4,24 +4,36 @@ require_once(LIB_PATH.DS."database.php");
 
 /**
  * @param string   $table_name Used in the parent find methods with late
- * static binding
- * @param array    $db_fields  Use in the attribute() methods so that the
+ * static binding, this is the name of the mysql database table.
+ *
+ * @param array    $db_fields  These are the names of the table headings of
+ * the database in mysql. Use in the attribute() methods so that the
  * abstracted create and update methods are usable when they join the queries
+ *
  * @param int      $max_photo_size Is equal to the php.ini's max_file_size.
+ *
  * @param int      $id         From the database as it auto_increments
+ *
  * @param string   $filename   Set to the $_FILE['name'] by calling basename()
- * to only return the name with the extension just not entire path
+ * to only return the name with the extension just not the entire path
+ *
  * @param string   $type       The mime type
+ *
  * @param int      $size       The size of the uploaded file
+ *
  * @param string   $caption    A caption which goes with the photograph
+ *
  * @param string   $temp_path   This is provide to me when I upload a file, by
  * the $_FILE['filename']['tmp_name'] which will be needed in the function
  * move_uploaded_file([from], [to]).
+ *
  * @param string   $upload_dir  Where the website stores the images to load on
  * the pages
+ *
  * @param array    $errors      This will be a list of all errors that can
  * occur during this process like the php ones listed below or the ones I will
  * create like 'does the file exist?
+ *
  * @param assoc    $upload_errors A user friendly read out of the php errors
  * which can occur during this process. The keys are the php errors and the
  * value are the user friendly strings. This gets user when checking for php
@@ -169,6 +181,11 @@ class Photograph extends DatabaseObject {
             return false;
         }
     }
+
+/**
+ * This is only the image directory and the filename with extension
+ * @return string ex. image/sunrise.jpg
+ */
     public function image_path() {
         return $this->upload_dir . DS . $this->filename;
     }
@@ -183,6 +200,10 @@ class Photograph extends DatabaseObject {
             $size_mb = round($this->size/1048576, 1);
             return "{$size_mb} MB";
         }
+    }
+
+    public function comments() {
+        return Comment::find_comments_on($this->id);
     }
 }
 ?>

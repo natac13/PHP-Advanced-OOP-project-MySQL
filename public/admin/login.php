@@ -50,7 +50,7 @@ echo output_message($message);
     <input type="password" name="password" id="password" pattern="\w{2,30}"
                 value="<?php echo htmlentities($password); ?>" required
                 title="Enter Password 2-30 characters.">
-    <input type="submit" id="submit" name="submit" value="Login">
+    <input type="submit" class="submit" name="submit" value="Login">
 </fieldset>
 </form>
 

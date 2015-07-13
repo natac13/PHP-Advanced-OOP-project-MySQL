@@ -1,6 +1,6 @@
 <?php
 require_once('database_object.php');
-require_once('log_object.php');
+require_once('logger.php');
 /**
  * A class to help work with sessions
  * In my case, this primarily to manage logging users in and out

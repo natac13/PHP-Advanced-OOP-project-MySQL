@@ -87,11 +87,16 @@ input {
 }
 
 input:invalid {
-    background-color: #FFB9AE
+    background-color: #FFF0A9
 }
 
 input:valid {
-    background-color: #A1FFBA
+    background-color: #C3F7F0
+}
+
+.submit:valid {
+    margin-left: 50px;
+    background-color: lightgrey;
 }
 
 #username {
@@ -113,11 +118,6 @@ fieldset {
     border-color: #017545;
 }
 
-#submit {
-    margin-left: 50px;
-    background-color: lightgrey;
-}
-
 #photos {
     list-style-type: none;
 }
@@ -128,5 +128,13 @@ fieldset {
     margin-right: auto;
     width: 1280px;
     height: 960px;
+}
+
+.comment {
+    margin-bottom: 2em;
+}
+
+.meta-data {
+    font-size: 0.8em;
 }
 

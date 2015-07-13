@@ -156,11 +156,11 @@ class DatabaseObject {
  */
     protected function sanitized_attributes() {
         global $db;
-        $cleaned = array();
+        $cleaned_values = array();
         foreach($this->attributes() as $key => $value) {
-            $cleaned[$key] = $db->escape_string($value);
+            $cleaned_values[$key] = $db->escape_string($value);
         }
-        return $cleaned;
+        return $cleaned_values;
     }
 
 
@@ -242,6 +242,7 @@ class DatabaseObject {
         confirm_query($result, $sql);
         return ($db->affected_rows == 1) ? true : false;
     }
+
 
 }
 
