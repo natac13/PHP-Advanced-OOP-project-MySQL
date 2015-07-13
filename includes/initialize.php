@@ -1,4 +1,10 @@
 <?php
+/**
+ * This file needs to be included with every other file in this project.
+ * It will load in all the files needed for all the classes and functions.
+ *
+ */
+
 
 // Define core paths
 // Define them ass absolute paths to make sure that require_once works as

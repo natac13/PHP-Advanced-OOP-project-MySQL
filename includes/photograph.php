@@ -10,7 +10,7 @@ require_once(LIB_PATH.DS."database.php");
  * @param int      $max_photo_size Is equal to the php.ini's max_file_size.
  * @param int      $id         From the database as it auto_increments
  * @param string   $filename   Set to the $_FILE['name'] by calling basename()
- * to only return the name without the extension
+ * to only return the name with the extension just not entire path
  * @param string   $type       The mime type
  * @param int      $size       The size of the uploaded file
  * @param string   $caption    A caption which goes with the photograph

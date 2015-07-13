@@ -117,3 +117,16 @@ fieldset {
     margin-left: 50px;
     background-color: lightgrey;
 }
+
+#photos {
+    list-style-type: none;
+}
+
+#pic {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1280px;
+    height: 960px;
+}
+
