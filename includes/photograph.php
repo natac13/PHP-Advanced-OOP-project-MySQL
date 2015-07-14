@@ -55,9 +55,9 @@ class Photograph extends DatabaseObject {
     public $caption;
     public $created;
 
-    private $temp_path;
+    private   $temp_path;
     protected $upload_dir = "images";
-    public $errors = array();
+    public    $errors = array();
 
     protected $upload_errors = array(
         UPLOAD_ERR_OK    => "No errors.",

@@ -26,7 +26,9 @@ if(isset($_POST['submit'])) {
 
 
 <?php include_layout_template('admin_header.php'); ?>
-
+&laquo;<a href="index.php">Admin Home</a>
+<br>
+<br>
 <h2>Create New User</h2>
 
 <?php echo output_message($message); ?>

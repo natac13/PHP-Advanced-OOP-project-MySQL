@@ -20,8 +20,8 @@ require_once('logger.php');
 class Session {
 
     private $logged_in = false;
-    public $user_id;
-    public $message;
+    public  $user_id;
+    public  $message;
     private $user;
 
     function __construct() {

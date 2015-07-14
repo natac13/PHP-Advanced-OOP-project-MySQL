@@ -9,6 +9,4 @@
         <h1>Photo Gallery</h1>
     </header><!-- /header -->
     <main>
-    &laquo;<a href="index.php">Admin Home</a>
-    <br>
-    <br>
+

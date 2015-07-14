@@ -25,12 +25,13 @@ img {
     border: none;
 }
 
-table, tr, td, tr {
+table, tr, td,  tr {
     border-collapse: collapse;
     vertical-align: top;
     text-align: left;
     font: 13px/15px Verdana,Arial,Helvetica,sans-serif;
 }
+
 
 a {
     color: $burgundy;
@@ -130,11 +131,37 @@ fieldset {
     height: 960px;
 }
 
+#small-pic {
+    @extend #pic;
+    width: 640px;
+    height: 480px;
+    float: left;
+}
+
+#small-pic-caption {
+    width: 100px;
+}
+
 .comment {
-    margin-bottom: 2em;
+    margin: 2em;
+    width: 15%;
+    display: inline-block;
+}
+
+#comments {
+    width: 50%;
+    margin-left: 700px;
+}
+
+#figure {
+    float: left;
 }
 
 .meta-data {
     font-size: 0.8em;
 }
 
+button {
+    padding: 0 0.5 0 0.5em;
+    margin-top: 0.5em;
+}
