@@ -56,12 +56,6 @@ input {
   float: right;
   margin-right: 50px; }
 
-#file_upload {
-  margin-right: 0px; }
-
-#caption {
-  margin-right: 70px; }
-
 input:invalid {
   background-color: #FFF0A9; }
 
@@ -71,9 +65,6 @@ input:valid {
 .submit:valid {
   margin-left: 50px;
   background-color: lightgrey; }
-
-#username {
-  float: right; }
 
 form {
   margin-right: 1500px; }
@@ -88,35 +79,29 @@ fieldset {
   padding: 10px;
   border-color: #017545; }
 
+#username {
+  float: right; }
+
+#file_upload {
+  margin-right: 0px; }
+
+#caption {
+  margin-right: 70px; }
+
 #photos {
   list-style-type: none; }
 
-#pic, #small-pic {
+#pic {
   display: block;
   margin-left: auto;
   margin-right: auto;
   width: 1280px;
   height: 960px; }
 
-#small-pic {
-  width: 640px;
-  height: 480px;
-  float: left; }
-
-#small-pic-caption {
-  width: 100px; }
-
 .comment {
   margin: 2em;
   width: 15%;
   display: inline-block; }
-
-#comments {
-  width: 50%;
-  margin-left: 700px; }
-
-#figure {
-  float: left; }
 
 .meta-data {
   font-size: 0.8em; }

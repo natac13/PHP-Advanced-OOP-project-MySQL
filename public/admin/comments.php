@@ -1,7 +1,4 @@
 <?php
-
-
-
 require_once("../../includes/initialize.php");
 
 if(!$session->is_logged_in()) { redirect_to("login.php"); }
@@ -18,7 +15,6 @@ if(!$photo) {
     redirect_to("index.php");
 }
 
-
 $comments = $photo->comments();
 ?>
 
@@ -28,42 +24,29 @@ $comments = $photo->comments();
 &laquo;<a href="list_photo.php">List Photos</a>
 <br>
 <!-- Photo -->
-
+<?php echo output_message($message); ?>
 <h2><?php echo $photo->caption; ?></h2>
 
-
-<figure id="figure">
-    <img id="small-pic" src="<?php echo "../" . $photo->image_path(); ?>"
-        alt="<?php echo $photo->filename; ?>">
-    <figcaption id="small-pic-caption">
-        Filename: <?php echo $photo->filename; ?>
-    </figcaption>
-</figure>
 
 <!-- List Comments -->
 
 <div id="comments">
 <?php foreach($comments as $comment) {  ?>
 <div class="comment">
-
-    <div class="author">
-        <?php echo htmlentities($comment->author); ?> wrote:
-    </div>
-
-    <div class="body">
-        <?php echo nl2br(strip_tags($comment->body, '<strong><em><p>'));?>
-    </div>
-
-    <div class="meta-data">
-        <?php echo $comment->datetime_to_text(); ?>
-    </div>
-
-    <div class="delete">
-        <a href="delete_comment.php?comment_id=<?php echo $comment->id; ?>"
-            onclick="return check()"><button type="button">Delete Comment
-            </button></a>
-    </div>
-
+<div class="author">
+    <?php echo htmlentities($comment->author); ?> wrote:
+</div>
+<div class="body">
+    <?php echo nl2br(strip_tags($comment->body, '<strong><em><p>'));?>
+</div>
+<div class="meta-data">
+    <?php echo $comment->datetime_to_text(); ?>
+</div>
+<div class="delete">
+    <a href="delete_comment.php?comment_id=<?php echo $comment->id; ?>"
+        onclick="return check()"><button type="button">Delete Comment</button>
+    </a>
+</div>
 </div>
 <?php } ?>
 <?php if(empty($comments)) { echo "No comments yet.";} ?>

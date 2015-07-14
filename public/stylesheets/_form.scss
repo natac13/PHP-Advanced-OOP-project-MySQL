@@ -1,0 +1,41 @@
+label {
+    display: inline-block;
+    margin-bottom: 10px;
+}
+
+input {
+    float: right;
+    margin-right: 50px;
+}
+
+input:invalid {
+    background-color: #FFF0A9
+}
+
+input:valid {
+    background-color: #C3F7F0
+}
+
+.submit:valid {
+    margin-left: 50px;
+    background-color: lightgrey;
+}
+
+form {
+    margin-right: 1500px;
+}
+
+legend {
+    font-size: 1.25em;
+    color: #017545;
+}
+fieldset {
+    -webkit-border-radius: 5px;
+     border-radius: 5px;
+    padding: 10px;
+    border-color: #017545;
+}
+
+#username {
+    float: right;
+}

@@ -43,34 +43,34 @@ echo output_message($message);
 <tbody>
 <?php foreach($photos as $photo) { ?>
 <tr>
-    <td>
-        <img src="../<?php echo $photo->image_path(); ?>" alt=
-            "<?php if(isset($photo->filename)) { echo $photo->filename; } ?>"
-            width="100">
-    </td>
-    <td>
-        <?php echo $photo->filename; ?>
-    </td>
-    <td>
-        <?php echo $photo->caption; ?>
-    </td>
-    <td>
-        <?php echo $photo->size_as_text(); ?>
-    </td>
-    <td>
-        <?php echo $photo->type; ?>
-    </td>
-    <td>
-        <?php echo $photo->datetime_to_text(); ?>
-    </td>
-    <td>
-        <a href="comments.php?photo_id=<?php echo $photo->id; ?>"
-            title="View comments"><?php echo count($photo->comments()); ?></a>
-    </td>
-    <td>
-        <a href="delete_photo.php?id=<?php echo $photo->id; ?>"
-            title="Click to delete the photo.">Delete Photo</a>
-    </td>
+<td>
+    <img src="../<?php echo $photo->image_path(); ?>" alt=
+        "<?php if(isset($photo->filename)) { echo $photo->filename; } ?>"
+        width="100">
+</td>
+<td>
+    <?php echo $photo->filename; ?>
+</td>
+<td>
+    <?php echo $photo->caption; ?>
+</td>
+<td>
+    <?php echo $photo->size_as_text(); ?>
+</td>
+<td>
+    <?php echo $photo->type; ?>
+</td>
+<td>
+    <?php echo $photo->datetime_to_text(); ?>
+</td>
+<td>
+    <a href="comments.php?photo_id=<?php echo $photo->id; ?>"
+        title="View comments"><?php echo count($photo->comments()); ?></a>
+</td>
+<td>
+    <a href="delete_photo.php?id=<?php echo $photo->id; ?>"
+        title="Click to delete the photo.">Delete Photo</a>
+</td>
 </tr>
 <?php } ?>
 </tbody>
