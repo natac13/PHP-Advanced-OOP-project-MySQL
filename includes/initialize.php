@@ -33,6 +33,7 @@ require_once(LIB_PATH.DS.'session.php');
 require_once(LIB_PATH.DS.'database.php');
 require_once(LIB_PATH.DS.'database_object.php');
 require_once(LIB_PATH.DS.'logger.php');
+require_once(LIB_PATH.DS.'pagination.php');
 
 // load database related objects, or the ones that use the database
 require_once(LIB_PATH.DS.'user.php');

@@ -34,7 +34,8 @@ if(isset($_POST['submit'])) {
 <?php echo output_message($message); ?>
 <fieldset>
     <legend>User Info:</legend>
-    <form action="new_user.php" method="POST" accept-charset="utf-8">
+    <form action="new_user.php" method="POST" id="user-form"
+            accept-charset="utf-8">
         <label for="username">Username: </label>
         <input type="text" id="username" name="username" require>
 

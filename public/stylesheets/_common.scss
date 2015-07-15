@@ -67,3 +67,25 @@ footer {
 table.bordered tr th, table.bordered tr td {
     border: 1px solid #000000;
 }
+
+.pagination {
+    clear: both;
+    margin-top: 10px;
+
+    a {
+        text-decoration: none;
+        color: #003AA5;
+    }
+    .selected {
+        font-weight: bold;
+        color: #95078F;
+    }
+
+    button {
+        color: #003AA5;
+        background-color: darkgrey;
+        -webkit-border-radius: 3px;
+         border-radius: 3px;
+
+    }
+}

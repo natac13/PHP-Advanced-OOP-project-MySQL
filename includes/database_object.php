@@ -116,6 +116,23 @@ class DatabaseObject {
     }
 
 /**
+ * $result will be be a normal mysql_result with the difference being that it
+ * is one thing(record) and that is the count. Therefore I still need to
+ * fetch_assoc() to get back the array of one record, and then use array_shift
+ * to retrieve that record
+ * @return  First element from the array which is a int.
+ */
+    public static function count_all() {
+        global $db;
+        $sql  = "SELECT COUNT(*) FROM ";
+        $sql .= static::$table_name;
+        $result = $db->query($sql);
+        confirm_query($result, $sql);
+        $record = $result->fetch_assoc();
+        return array_shift($record);
+    }
+
+/**
  * This will return true or false by checking if the calling object has the
  * attribute(variable) which is passed in as a parameter
  *
@@ -243,6 +260,12 @@ class DatabaseObject {
         return ($db->affected_rows == 1) ? true : false;
     }
 
+
+/**
+ * Takes in the none user friendly formatted time string from my database and
+ * will convert to a nicer looking display
+ * @return string Time created.
+ */
     public function datetime_to_text() {
         if(isset($this->created)) {
             $datetime = $this->created;

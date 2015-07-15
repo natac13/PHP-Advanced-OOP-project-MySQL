@@ -8,7 +8,7 @@ if(empty($_GET['photo_id'])) {
     redirect_to("list_photo.php");
 }
 
-$photo = Photograph::find_by_id($_GET['photo_id']);
+$photo = Photograph::find_by_id((int)$_GET['photo_id']);
 
 if(!$photo) {
     $session->message("Photo object cannot be found in database.");
@@ -25,7 +25,7 @@ $comments = $photo->comments();
 <br>
 <!-- Photo -->
 <?php echo output_message($message); ?>
-<h2><?php echo $photo->caption; ?></h2>
+<h2>Comments on: <?php echo $photo->filename; ?></h2>
 
 
 <!-- List Comments -->

@@ -6,8 +6,9 @@
     margin-right: 70px
 }
 
-#photos {
-    list-style-type: none;
+#photo {
+    float: left;
+    margin-right: 20px;
 }
 
 #pic {
@@ -18,6 +19,9 @@
     height: 960px;
 }
 
+#author {
+    margin-right: 0;
+}
 
 .comment {
     margin: 2em;

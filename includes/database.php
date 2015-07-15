@@ -19,13 +19,12 @@ $db =& $mysqli; // a reference to use in the main scripts
  * But not when using delete, since I ask if affected rows where changed.
  * @param  obj/bool $result    Is a object when using SELECT, SHOW, DESCRIBE
  * and EXPLAIN for query, the rest are bools
- * @param  string $last_query Command for mysql
 */
 function confirm_query($result, $query) {
     global $db;
-    global $last_query;
+    // global $last_query;
     // I am making a global version of the last_query, available to all scopes
-    $last_query =& $query;
+    // $last_query =& $query;
     if(!$result) {
         $output =  "Database query failed: " . $db->error . "<br>";
         $output .= "Last SQL query: " . $query;

@@ -5,11 +5,16 @@ require_once('../../includes/initialize.php');
 if(!$session->is_logged_in()) {
     redirect_to('login.php');
 }
-/**
- * Finds all the photos in the database in an array
- * @var array Of Photo objects.
- */
-$photos = Photograph::find_all();
+
+$page = !empty($_GET['page']) ? (int)$_GET['page'] : 1;
+
+$per_page = 5;
+
+$count = Photograph::count_all();
+
+$pagination = new Pagination($page, $per_page, $count);
+$sql = $pagination->build_sql("photographs");
+$photos = Photograph::find_by_sql($sql);
 ?>
 
 <?php  include_layout_template('admin_header.php'); ?>
@@ -75,6 +80,31 @@ echo output_message($message);
 <?php } ?>
 </tbody>
 </table>
+
+<div class="pagination">
+    <?php
+        if($pagination->total_pages() > 1) {
+            if($pagination->has_previous_page()) {
+                echo "<a href=\"list_photo.php?page=";
+                echo $pagination->pervious_page();
+                echo "\"><button>&laquo; Previous</button> </a> ";
+            }
+
+            for($i = 1; $i <= $pagination->total_pages(); $i++) {
+                if($i == $page) {
+                    echo "<span class=\"selected\">{$i}</span>";
+                } else {
+                    echo " <a href=\"list_photo.php?page={$i}\">{$i}</a> ";
+                }
+            }
+            if($pagination->has_next_page()) {
+                echo "<a href=\"list_photo.php?page=";
+                echo $pagination->next_page();
+                echo "\"> <button>Next &raquo;</button></a>";
+            }
+        }
+    ?>
+</div>
 <br>
 <a href="photo_upload.php">Upload a new photo to the database.</a>
 

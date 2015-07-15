@@ -1,3 +1,4 @@
 *.jpg
 /images
 *.png
+config.php

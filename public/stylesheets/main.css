@@ -48,6 +48,21 @@ footer {
 table.bordered tr th, table.bordered tr td {
   border: 1px solid #000000; }
 
+.pagination {
+  clear: both;
+  margin-top: 10px; }
+  .pagination a {
+    text-decoration: none;
+    color: #003AA5; }
+  .pagination .selected {
+    font-weight: bold;
+    color: #95078F; }
+  .pagination button {
+    color: #003AA5;
+    background-color: darkgrey;
+    -webkit-border-radius: 3px;
+    border-radius: 3px; }
+
 label {
   display: inline-block;
   margin-bottom: 10px; }
@@ -82,14 +97,18 @@ fieldset {
 #username {
   float: right; }
 
+.submit {
+  margin-right: 0; }
+
 #file_upload {
   margin-right: 0px; }
 
 #caption {
   margin-right: 70px; }
 
-#photos {
-  list-style-type: none; }
+#photo {
+  float: left;
+  margin-right: 20px; }
 
 #pic {
   display: block;
@@ -97,6 +116,9 @@ fieldset {
   margin-right: auto;
   width: 1280px;
   height: 960px; }
+
+#author {
+  margin-right: 0; }
 
 .comment {
   margin: 2em;
